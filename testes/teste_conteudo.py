@@ -1,6 +1,6 @@
 import unittest
 
-from streamflix.models import Documentario, Episodio, Filme, Serie
+from streaming.Models import Documentario, Episodio, Filme, Serie
 
 
 class TestHerancaEPolimorfismo(unittest.TestCase):

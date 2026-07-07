@@ -1,4 +1,4 @@
-from streamflix.models import (
+from streaming.Models import (
     Documentario,
     Episodio,
     Filme,

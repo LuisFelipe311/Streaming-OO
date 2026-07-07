@@ -1,6 +1,6 @@
 import unittest
 
-from streamflix.models import Documentario, Filme, ServicoStreaming, Usuario
+from streaming.Models import Documentario, Filme, ServicoStreaming, Usuario
 
 
 class TestServicoStreaming(unittest.TestCase):

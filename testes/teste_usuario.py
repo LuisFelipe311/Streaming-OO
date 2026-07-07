@@ -1,6 +1,6 @@
 import unittest
 
-from streamflix.models import Filme, PlanoAssinatura, Usuario
+from streaming.Models import Filme, PlanoAssinatura, Usuario
 
 
 class TestUsuarioAssinaturaEFavoritos(unittest.TestCase):
