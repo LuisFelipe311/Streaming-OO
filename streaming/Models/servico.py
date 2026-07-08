@@ -1,3 +1,12 @@
+"""Serviço principal (catálogo + recomendação).
+
+Relações demonstradas neste arquivo:
+- COMPOSIÇÃO: ServicoStreaming "possui" o catálogo de Conteudo.
+- DEPENDÊNCIA: ServicoStreaming usa MotorDeRecomendacao apenas dentro de um
+  método (instanciado localmente, não guardado como atributo) — é o exemplo
+  clássico de dependência: "usa", mas não "tem".
+"""
+
 import random
 
 from .conteudo import Conteudo
@@ -32,6 +41,10 @@ class ServicoStreaming:
     @property
     def catalogo(self) -> tuple:
         return tuple(self._catalogo)
+
+    @property
+    def usuarios(self) -> tuple:
+        return tuple(self._usuarios)
 
     def recomendar_para(self, usuario: Usuario, quantidade: int = 3) -> list[Conteudo]:
         motor = MotorDeRecomendacao()  # dependência: criada e usada localmente
