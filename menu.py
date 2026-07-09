@@ -1,11 +1,3 @@
-"""Menu interativo do StreamFlix — Nível 2 (Desk App II).
-
-Dá acesso, em tempo de execução, a todos os modelos e funcionalidades:
-catálogo (filmes, séries, episódios, documentários), usuários, assinaturas,
-favoritos e recomendações. Os dados vivem em memória durante a execução —
-ainda não há persistência em banco de dados, conforme pede o nível 2.
-"""
-
 from streaming.Models import (
     Documentario,
     Episodio,
