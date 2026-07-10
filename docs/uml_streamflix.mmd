@@ -1,0 +1,80 @@
+classDiagram
+    class Conteudo {
+        <<abstract>>
+        +String titulo
+        +int ano
+        +String genero
+        +float avaliacao
+        +reproduzir()* String
+        +exibir_informacoes() String
+    }
+    class Filme {
+        +int duracao_minutos
+        +reproduzir() String
+    }
+    class Serie {
+        -List~Episodio~ episodios
+        +adicionar_episodio(episodio : Episodio) void
+        +reproduzir() String
+    }
+    class Documentario {
+        +String diretor
+        +reproduzir() String
+        +exibir_informacoes() String
+    }
+    class Episodio {
+        +int numero
+        +String titulo
+        +int duracao_minutos
+        +bool assistido
+    }
+    class Usuario {
+        +String nome
+        +String email
+        +String genero_favorito
+        +ListaFavoritos favoritos
+        +Assinatura assinatura
+        +assinar(plano : PlanoAssinatura) void
+    }
+    class ListaFavoritos {
+        -List~Conteudo~ itens
+        +adicionar(conteudo : Conteudo) void
+        +remover(conteudo : Conteudo) void
+        +listar() Tuple~Conteudo~
+    }
+    class Assinatura {
+        +PlanoAssinatura plano
+        +float preco_mensal
+    }
+    class PlanoAssinatura {
+        <<enumeration>>
+        FREE
+        STANDARD
+        PREMIUM
+    }
+    class ServicoStreaming {
+        +String nome
+        -List~Conteudo~ catalogo
+        -List~Usuario~ usuarios
+        +adicionar_conteudo(conteudo : Conteudo) void
+        +cadastrar_usuario(usuario : Usuario) void
+        +recomendar_para(usuario : Usuario, quantidade : int) List~Conteudo~
+        +reproduzir_para(usuario : Usuario, conteudo : Conteudo) String
+    }
+    class MotorDeRecomendacao {
+        +recomendar(usuario : Usuario, catalogo : List~Conteudo~, quantidade : int) List~Conteudo~
+    }
+
+    Conteudo <|-- Filme : Herança
+    Conteudo <|-- Serie : Herança
+    Conteudo <|-- Documentario : Herança
+
+    Serie *-- Episodio : Composição
+    Usuario *-- ListaFavoritos : Composição
+    ServicoStreaming *-- Conteudo : Composição
+
+    Usuario --> Assinatura : Associação
+    Assinatura --> PlanoAssinatura : Associação
+    ListaFavoritos --> Conteudo : Associação
+
+    ServicoStreaming ..> MotorDeRecomendacao : Dependência
