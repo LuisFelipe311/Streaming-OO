@@ -45,7 +45,6 @@ class TestRepositorioStreamingRoundTrip(unittest.TestCase):
         serie.adicionar_episodio(Episodio(2, "Mentiras", 51))
         self.repo.salvar_conteudo(serie)
 
-        # marca o primeiro episódio como assistido e persiste essa mudança
         serie.episodios[0].assistido = True
         self.repo.atualizar_episodio(serie.episodios[0])
 
@@ -113,7 +112,6 @@ class TestServicoStreamingPersisteEmSqlite(unittest.TestCase):
         servico1.favoritar(usuario, filme)
         servico1.repositorio.fechar()
 
-        # simula reabrir o programa: novo ServicoStreaming, mesmo arquivo
         servico2 = ServicoStreaming("StreamFlix", caminho_banco=self.caminho_banco)
         servico2.carregar_dados_persistidos()
 
@@ -124,8 +122,6 @@ class TestServicoStreamingPersisteEmSqlite(unittest.TestCase):
         self.assertEqual(len(usuario_recarregado.favoritos.listar()), 1)
         self.assertEqual(usuario_recarregado.favoritos.listar()[0].titulo, "Interestelar")
 
-        # fecha a conexão do servico2 também, senão no Windows o arquivo
-        # continua "em uso" e o tearDown falha ao tentar apagá-lo
         servico2.repositorio.fechar()
 
 

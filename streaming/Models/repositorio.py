@@ -1,3 +1,13 @@
+"""Persistência do StreamFlix em SQLite — Nível 3 (Desk App III).
+
+Relação demonstrada neste arquivo:
+- COMPOSIÇÃO: ServicoStreaming "possui" um RepositorioStreaming — o
+  repositório é criado pelo próprio serviço, no construtor, e não existe
+  com propósito próprio fora dele.
+
+Usa só a biblioteca padrão do Python (sqlite3), sem dependências externas.
+"""
+
 import sqlite3
 
 from .conteudo import Conteudo, Documentario, Episodio, Filme, Serie
@@ -41,7 +51,8 @@ CREATE TABLE IF NOT EXISTS favorito (
 
 
 class RepositorioStreaming:
-   
+    """Camada de persistência: converte objetos do domínio em linhas de
+    banco de dados e vice-versa. Quem usa o serviço não precisa saber SQL."""
 
     def __init__(self, caminho_banco: str = "streamflix.db"):
         self.conexao = sqlite3.connect(caminho_banco)
@@ -49,8 +60,6 @@ class RepositorioStreaming:
         self.conexao.execute("PRAGMA foreign_keys = ON")
         self.conexao.executescript(_SCHEMA)
         self.conexao.commit()
-
-    # ---------- conteúdo ----------
 
     def salvar_conteudo(self, conteudo: Conteudo) -> int:
         tipo = type(conteudo).__name__
@@ -113,8 +122,6 @@ class RepositorioStreaming:
             catalogo.append(conteudo)
         return catalogo
 
-    # ---------- usuários ----------
-
     def salvar_usuario(self, usuario: Usuario) -> int:
         cursor = self.conexao.execute(
             "INSERT INTO usuario (nome, email, genero_favorito, plano) VALUES (?, ?, ?, ?)",
@@ -140,8 +147,6 @@ class RepositorioStreaming:
             usuario.id = linha["id"]
             usuarios.append(usuario)
         return usuarios
-
-    # ---------- favoritos ----------
 
     def adicionar_favorito(self, usuario_id: int, conteudo_id: int) -> None:
         self.conexao.execute(

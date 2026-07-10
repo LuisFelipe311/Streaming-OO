@@ -1,3 +1,14 @@
+"""Serviço principal (catálogo + recomendação + persistência).
+
+Relações demonstradas neste arquivo:
+- COMPOSIÇÃO: ServicoStreaming "possui" o catálogo de Conteudo.
+- COMPOSIÇÃO: ServicoStreaming "possui" um RepositorioStreaming — criado no
+  próprio construtor, é quem grava/lê tudo do banco SQLite (nível 3).
+- DEPENDÊNCIA: ServicoStreaming usa MotorDeRecomendacao apenas dentro de um
+  método (instanciado localmente, não guardado como atributo) — é o exemplo
+  clássico de dependência: "usa", mas não "tem".
+"""
+
 import random
 
 from .conteudo import Conteudo, Episodio, Serie
@@ -6,7 +17,8 @@ from .usuario import PlanoAssinatura, Usuario
 
 
 class MotorDeRecomendacao:
-   
+    """Só é usada dentro de um método de ServicoStreaming -> DEPENDÊNCIA."""
+
     def recomendar(
         self, usuario: Usuario, catalogo: list[Conteudo], quantidade: int = 3
     ) -> list[Conteudo]:
@@ -20,11 +32,9 @@ class MotorDeRecomendacao:
 class ServicoStreaming:
     def __init__(self, nome: str, caminho_banco: str = "streamflix.db"):
         self.nome = nome
-        self._catalogo: list[Conteudo] = []  # composição
+        self._catalogo: list[Conteudo] = []
         self._usuarios: list[Usuario] = []
-        self.repositorio = RepositorioStreaming(caminho_banco)  # composição
-
-    # ---------- catálogo e usuários ----------
+        self.repositorio = RepositorioStreaming(caminho_banco)
 
     def adicionar_conteudo(self, conteudo: Conteudo) -> None:
         self._catalogo.append(conteudo)
@@ -46,8 +56,6 @@ class ServicoStreaming:
     def usuarios(self) -> tuple:
         return tuple(self._usuarios)
 
-    # ---------- assinatura e favoritos (persistidos) ----------
-
     def assinar_plano(self, usuario: Usuario, plano: PlanoAssinatura) -> None:
         usuario.assinar(plano)
         self.repositorio.atualizar_plano(usuario)
@@ -60,24 +68,21 @@ class ServicoStreaming:
         usuario.favoritos.remover(conteudo)
         self.repositorio.remover_favorito(usuario.id, conteudo.id)
 
-    # ---------- recomendação e reprodução ----------
-
     def recomendar_para(self, usuario: Usuario, quantidade: int = 3) -> list[Conteudo]:
-        motor = MotorDeRecomendacao()  # dependência: criada e usada localmente
+        motor = MotorDeRecomendacao()
         return motor.recomendar(usuario, self._catalogo, quantidade)
 
     def reproduzir_para(self, usuario: Usuario, conteudo: Conteudo) -> str:
-        resultado = conteudo.reproduzir()  # polimorfismo em ação
+        resultado = conteudo.reproduzir()
         if isinstance(conteudo, Serie):
             for episodio in conteudo.episodios:
                 if episodio.assistido:
                     self.repositorio.atualizar_episodio(episodio)
         return resultado
 
-    # ---------- persistência ----------
-
     def carregar_dados_persistidos(self) -> None:
-    
+        """Repõe catálogo, usuários e favoritos a partir do banco de dados.
+        Chamar uma vez, ao iniciar o programa."""
         self._catalogo = self.repositorio.carregar_catalogo()
         self._usuarios = self.repositorio.carregar_usuarios()
         conteudo_por_id = {conteudo.id: conteudo for conteudo in self._catalogo}

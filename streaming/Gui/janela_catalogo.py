@@ -124,8 +124,6 @@ class JanelaCatalogo(ctk.CTkToplevel):
         resultado = self.servico.reproduzir_para(usuario, conteudo)
         tema.mostrar_aviso(self, resultado, titulo="Reproduzindo")
 
-    # ---------- formulários de cadastro ----------
-
     def _campos_basicos(self, formulario):
         tema.rotulo_campo(formulario, "Título").pack(fill="x", padx=24, pady=(24, 4))
         campo_titulo = tema.campo_entrada(formulario, "Título")

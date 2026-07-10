@@ -1,3 +1,13 @@
+"""Menu interativo do StreamFlix — Nível 3 (Desk App III).
+
+Dá acesso, em tempo de execução, a todos os modelos e funcionalidades:
+catálogo (filmes, séries, episódios, documentários), usuários, assinaturas,
+favoritos e recomendações. A partir do nível 3, tudo é persistido em um
+banco de dados SQLite (arquivo streamflix.db, criado automaticamente na
+primeira execução) — feche o programa e abra de novo que os dados continuam
+lá.
+"""
+
 import sqlite3
 
 from streaming.Models import (
@@ -55,8 +65,6 @@ def escolher_da_lista(itens: list, titulo: str = "Escolha uma opção"):
         return None
     return itens[indice - 1]
 
-
-# ---------- catálogo ----------
 
 def adicionar_filme() -> None:
     print("\n-- Novo filme --")
@@ -160,8 +168,6 @@ def menu_catalogo() -> None:
         acao()
         pausar()
 
-
-# ---------- usuários ----------
 
 PLANOS = {
     "1": PlanoAssinatura.FREE,
@@ -274,8 +280,6 @@ def menu_usuarios() -> None:
         pausar()
 
 
-# ---------- recomendações ----------
-
 def gerar_recomendacoes() -> None:
     usuario = escolher_da_lista(list(servico.usuarios), "Escolha o usuário")
     if usuario is None:
@@ -304,8 +308,6 @@ def menu_recomendacoes() -> None:
         else:
             print("Opção inválida.")
 
-
-# ---------- menu principal ----------
 
 def popular_dados_exemplo() -> None:
     """Alguns dados iniciais, só pra não começar com tudo vazio."""

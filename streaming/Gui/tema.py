@@ -7,7 +7,6 @@ de um mockup visual comparando 3 opções.
 
 import customtkinter as ctk
 
-# ---------- paleta ----------
 BG_JANELA = "#101d29"
 BG_CAMPO = "#17293a"
 TEXTO_PRINCIPAL = "#eaf6f6"
@@ -18,7 +17,6 @@ TEXTO_SOBRE_DESTAQUE = "#06222a"
 BORDA_SUTIL = "#2a4457"
 ERRO = "#ff6b6b"
 
-# ---------- fontes ----------
 FONTE_TITULO = ("Segoe UI", 20, "bold")
 FONTE_SUBTITULO = ("Segoe UI", 13)
 FONTE_LABEL = ("Segoe UI", 12)

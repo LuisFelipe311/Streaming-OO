@@ -17,7 +17,6 @@ class TestHerancaEPolimorfismo(unittest.TestCase):
     def test_polimorfismo_reproduzir_varia_por_subclasse(self):
         filme = Filme("A", 2020, "Drama", 8.0, 100)
         doc = Documentario("B", 2020, "Drama", 8.0, "Diretor X")
-        # mesmo método .reproduzir(), comportamento diferente por classe
         self.assertNotEqual(type(filme.reproduzir()), None)
         self.assertNotIn("dirigido por", filme.reproduzir())
         self.assertIn("documentário", doc.reproduzir())

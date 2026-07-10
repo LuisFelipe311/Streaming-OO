@@ -22,7 +22,6 @@ def montar_catalogo(servico: ServicoStreaming) -> None:
 
 
 def main() -> None:
-   
     servico = ServicoStreaming("StreamFlix", caminho_banco=":memory:")
     montar_catalogo(servico)
 
@@ -37,16 +36,16 @@ def main() -> None:
     for conteudo in servico.catalogo:
         print(" -", conteudo.exibir_informacoes())
 
-    print("\n-- Reproduzindo cada item do catálogo --")
+    print("\n-- Reproduzindo cada item do catálogo (POLIMORFISMO) --")
     for conteudo in servico.catalogo:
         print(" -", servico.reproduzir_para(usuario, conteudo))
 
-    print("\n-- Favoritando conteúdo --")
+    print("\n-- Favoritando conteúdo (COMPOSIÇÃO + ASSOCIAÇÃO) --")
     for conteudo in servico.catalogo:
         usuario.favoritos.adicionar(conteudo)
     print("Favoritos de", usuario.nome, ":", [c.titulo for c in usuario.favoritos.listar()])
 
-    print("\n-- Recomendações --")
+    print("\n-- Recomendações (DEPENDÊNCIA de MotorDeRecomendacao) --")
     recomendados = servico.recomendar_para(usuario, quantidade=2)
     print("Recomendado para", usuario.nome, ":", [c.titulo for c in recomendados])
 

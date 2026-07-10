@@ -21,7 +21,6 @@ class TestUsuarioAssinaturaEFavoritos(unittest.TestCase):
         self.usuario.favoritos.adicionar(self.filme)
         self.assertIn(self.filme, self.usuario.favoritos.listar())
 
-        # remover do favoritos não afeta o objeto Conteudo em si (associação, não posse)
         self.usuario.favoritos.remover(self.filme)
         self.assertNotIn(self.filme, self.usuario.favoritos.listar())
         self.assertEqual(self.filme.titulo, "Interestelar")
