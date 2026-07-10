@@ -1,6 +1,6 @@
 
-from streaming.Gui import tema
-from streaming.Gui.janela_principal import JanelaPrincipal
+from streaming.IG import tema
+from streaming.IG.janela_principal import JanelaPrincipal
 from streaming.Models import ServicoStreaming
 
 
