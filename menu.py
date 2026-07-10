@@ -1,13 +1,3 @@
-"""Menu interativo do StreamFlix — Nível 3 (Desk App III).
-
-Dá acesso, em tempo de execução, a todos os modelos e funcionalidades:
-catálogo (filmes, séries, episódios, documentários), usuários, assinaturas,
-favoritos e recomendações. A partir do nível 3, tudo é persistido em um
-banco de dados SQLite (arquivo streamflix.db, criado automaticamente na
-primeira execução) — feche o programa e abra de novo que os dados continuam
-lá.
-"""
-
 import sqlite3
 
 from streaming.Models import (
