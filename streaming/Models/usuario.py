@@ -51,6 +51,7 @@ class ListaFavoritos:
 
 class Usuario:
     def __init__(self, nome: str, email: str, genero_favorito: str):
+        self.id: int | None = None  # preenchido pelo RepositorioStreaming ao salvar
         self.nome = nome
         self.email = email
         self.genero_favorito = genero_favorito

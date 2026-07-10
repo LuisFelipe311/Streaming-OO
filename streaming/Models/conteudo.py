@@ -5,6 +5,7 @@ class Conteudo(ABC):
     """Classe base abstrata para qualquer item do catálogo."""
 
     def __init__(self, titulo: str, ano: int, genero: str, avaliacao: float):
+        self.id: int | None = None  # preenchido pelo RepositorioStreaming ao salvar
         self.titulo = titulo
         self.ano = ano
         self.genero = genero
@@ -35,6 +36,7 @@ class Episodio:
     """Um Episodio só faz sentido dentro de uma Serie: relação de COMPOSIÇÃO."""
 
     def __init__(self, numero: int, titulo: str, duracao_minutos: int):
+        self.id: int | None = None  # preenchido pelo RepositorioStreaming ao salvar
         self.numero = numero
         self.titulo = titulo
         self.duracao_minutos = duracao_minutos

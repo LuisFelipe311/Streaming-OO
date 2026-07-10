@@ -22,7 +22,11 @@ def montar_catalogo(servico: ServicoStreaming) -> None:
 
 
 def main() -> None:
-    servico = ServicoStreaming("StreamFlix")
+    # Este script é a demonstração isolada do nível 1 e não precisa persistir
+    # nada — por isso usa um banco SQLite só em memória (":memory:"), que
+    # some quando o programa termina. O banco "de verdade" (streamflix.db)
+    # é usado pelo menu.py, a partir do nível 3.
+    servico = ServicoStreaming("StreamFlix", caminho_banco=":memory:")
     montar_catalogo(servico)
 
     usuario = Usuario("Luis", "luis@example.com", genero_favorito="Ficção")
@@ -36,16 +40,16 @@ def main() -> None:
     for conteudo in servico.catalogo:
         print(" -", conteudo.exibir_informacoes())
 
-    print("\n-- Reproduzindo cada item do catálogo --")
+    print("\n-- Reproduzindo cada item do catálogo (POLIMORFISMO) --")
     for conteudo in servico.catalogo:
         print(" -", servico.reproduzir_para(usuario, conteudo))
 
-    print("\n-- Favoritando conteúdo --")
+    print("\n-- Favoritando conteúdo (COMPOSIÇÃO + ASSOCIAÇÃO) --")
     for conteudo in servico.catalogo:
         usuario.favoritos.adicionar(conteudo)
     print("Favoritos de", usuario.nome, ":", [c.titulo for c in usuario.favoritos.listar()])
 
-    print("\n-- Recomendações --")
+    print("\n-- Recomendações (DEPENDÊNCIA de MotorDeRecomendacao) --")
     recomendados = servico.recomendar_para(usuario, quantidade=2)
     print("Recomendado para", usuario.nome, ":", [c.titulo for c in recomendados])
 

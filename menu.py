@@ -1,3 +1,5 @@
+import sqlite3
+
 from streaming.Models import (
     Documentario,
     Episodio,
@@ -97,7 +99,7 @@ def adicionar_episodio_existente() -> None:
     proximo_numero = len(serie.episodios) + 1
     titulo_ep = input("Título do novo episódio: ").strip()
     duracao_ep = ler_int("Duração (minutos): ")
-    serie.adicionar_episodio(Episodio(proximo_numero, titulo_ep, duracao_ep))
+    servico.adicionar_episodio(serie, Episodio(proximo_numero, titulo_ep, duracao_ep))
     print(f"Episódio {proximo_numero} adicionado a '{serie.titulo}'.")
 
 
@@ -176,7 +178,11 @@ def cadastrar_usuario() -> None:
     email = input("E-mail: ").strip()
     genero_favorito = input("Gênero favorito: ").strip()
     usuario = Usuario(nome, email, genero_favorito)
-    servico.cadastrar_usuario(usuario)
+    try:
+        servico.cadastrar_usuario(usuario)
+    except sqlite3.IntegrityError:
+        print(f"Já existe um usuário cadastrado com o e-mail '{email}'.")
+        return
     print(f"Usuário '{nome}' cadastrado.")
 
 
@@ -202,7 +208,7 @@ def assinar_plano() -> None:
     if plano is None:
         print("Opção inválida.")
         return
-    usuario.assinar(plano)
+    servico.assinar_plano(usuario, plano)
     print(f"{usuario.nome} agora está no plano {usuario.assinatura}.")
 
 
@@ -213,7 +219,7 @@ def favoritar_conteudo() -> None:
     conteudo = escolher_da_lista(list(servico.catalogo), "Escolha o conteúdo")
     if conteudo is None:
         return
-    usuario.favoritos.adicionar(conteudo)
+    servico.favoritar(usuario, conteudo)
     print(f"'{conteudo.titulo}' adicionado aos favoritos de {usuario.nome}.")
 
 
@@ -224,7 +230,7 @@ def remover_favorito() -> None:
     conteudo = escolher_da_lista(list(usuario.favoritos.listar()), f"Favoritos de {usuario.nome}")
     if conteudo is None:
         return
-    usuario.favoritos.remover(conteudo)
+    servico.desfavoritar(usuario, conteudo)
     print(f"'{conteudo.titulo}' removido dos favoritos de {usuario.nome}.")
 
 
@@ -340,5 +346,14 @@ def menu_principal() -> None:
 
 
 if __name__ == "__main__":
-    popular_dados_exemplo()
+    print("Carregando dados salvos em streamflix.db...")
+    servico.carregar_dados_persistidos()
+    if not servico.catalogo and not servico.usuarios:
+        print("Banco vazio — cadastrando dados de exemplo pela primeira vez.")
+        popular_dados_exemplo()
+    else:
+        print(
+            f"{len(servico.catalogo)} conteúdo(s) e {len(servico.usuarios)} "
+            "usuário(s) carregados do banco."
+        )
     menu_principal()

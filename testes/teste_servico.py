@@ -5,7 +5,7 @@ from streaming.Models import Documentario, Filme, ServicoStreaming, Usuario
 
 class TestServicoStreaming(unittest.TestCase):
     def setUp(self):
-        self.servico = ServicoStreaming("StreamFlix")
+        self.servico = ServicoStreaming("StreamFlix", caminho_banco=":memory:")
         self.filme = Filme("Interestelar", 2014, "Ficção", 9.1, 169)
         self.doc = Documentario("Cosmos", 2019, "Ficção", 8.7, "Ann Druyan")
         self.servico.adicionar_conteudo(self.filme)
