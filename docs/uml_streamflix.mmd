@@ -56,13 +56,27 @@ classDiagram
         +String nome
         -List~Conteudo~ catalogo
         -List~Usuario~ usuarios
+        +RepositorioStreaming repositorio
         +adicionar_conteudo(conteudo : Conteudo) void
         +cadastrar_usuario(usuario : Usuario) void
+        +adicionar_episodio(serie : Serie, episodio : Episodio) void
+        +assinar_plano(usuario : Usuario, plano : PlanoAssinatura) void
+        +favoritar(usuario : Usuario, conteudo : Conteudo) void
+        +desfavoritar(usuario : Usuario, conteudo : Conteudo) void
         +recomendar_para(usuario : Usuario, quantidade : int) List~Conteudo~
         +reproduzir_para(usuario : Usuario, conteudo : Conteudo) String
+        +carregar_dados_persistidos() void
     }
     class MotorDeRecomendacao {
         +recomendar(usuario : Usuario, catalogo : List~Conteudo~, quantidade : int) List~Conteudo~
+    }
+    class RepositorioStreaming {
+        +salvar_conteudo(conteudo : Conteudo) int
+        +carregar_catalogo() List~Conteudo~
+        +salvar_usuario(usuario : Usuario) int
+        +carregar_usuarios() List~Usuario~
+        +adicionar_favorito(usuario_id : int, conteudo_id : int) void
+        +remover_favorito(usuario_id : int, conteudo_id : int) void
     }
 
     Conteudo <|-- Filme : Herança
@@ -72,6 +86,7 @@ classDiagram
     Serie *-- Episodio : Composição
     Usuario *-- ListaFavoritos : Composição
     ServicoStreaming *-- Conteudo : Composição
+    ServicoStreaming *-- RepositorioStreaming : Composição
 
     Usuario --> Assinatura : Associação
     Assinatura --> PlanoAssinatura : Associação
