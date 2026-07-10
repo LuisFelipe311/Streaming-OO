@@ -13,8 +13,6 @@ from streaming.Models import (
 servico = ServicoStreaming("StreamFlix")
 
 
-# ---------- utilitários de entrada ----------
-
 def pausar() -> None:
     input("\nPressione ENTER para continuar...")
 
