@@ -22,10 +22,7 @@ def montar_catalogo(servico: ServicoStreaming) -> None:
 
 
 def main() -> None:
-    # Este script é a demonstração isolada do nível 1 e não precisa persistir
-    # nada — por isso usa um banco SQLite só em memória (":memory:"), que
-    # some quando o programa termina. O banco "de verdade" (streamflix.db)
-    # é usado pelo menu.py, a partir do nível 3.
+   
     servico = ServicoStreaming("StreamFlix", caminho_banco=":memory:")
     montar_catalogo(servico)
 
