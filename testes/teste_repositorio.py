@@ -124,6 +124,10 @@ class TestServicoStreamingPersisteEmSqlite(unittest.TestCase):
         self.assertEqual(len(usuario_recarregado.favoritos.listar()), 1)
         self.assertEqual(usuario_recarregado.favoritos.listar()[0].titulo, "Interestelar")
 
+        # fecha a conexão do servico2 também, senão no Windows o arquivo
+        # continua "em uso" e o tearDown falha ao tentar apagá-lo
+        servico2.repositorio.fechar()
+
 
 if __name__ == "__main__":
     unittest.main()
