@@ -36,16 +36,16 @@ def main() -> None:
     for conteudo in servico.catalogo:
         print(" -", conteudo.exibir_informacoes())
 
-    print("\n-- Reproduzindo cada item do catálogo (POLIMORFISMO) --")
+    print("\n-- Reproduzindo cada item do catálogo --")
     for conteudo in servico.catalogo:
         print(" -", servico.reproduzir_para(usuario, conteudo))
 
-    print("\n-- Favoritando conteúdo (COMPOSIÇÃO + ASSOCIAÇÃO) --")
+    print("\n-- Favoritando conteúdo --")
     for conteudo in servico.catalogo:
         usuario.favoritos.adicionar(conteudo)
     print("Favoritos de", usuario.nome, ":", [c.titulo for c in usuario.favoritos.listar()])
 
-    print("\n-- Recomendações (DEPENDÊNCIA de MotorDeRecomendacao) --")
+    print("\n-- Recomendações --")
     recomendados = servico.recomendar_para(usuario, quantidade=2)
     print("Recomendado para", usuario.nome, ":", [c.titulo for c in recomendados])
 

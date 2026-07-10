@@ -1,4 +1,4 @@
-"""Janela principal (hub) da interface gráfica do StreamFlix — nível 4."""
+
 
 import customtkinter as ctk
 
@@ -10,7 +10,7 @@ from .janela_usuarios import JanelaUsuarios
 
 
 class JanelaPrincipal(ctk.CTk):
-    """Janela raiz: mostra o usuário atual e dá acesso às demais janelas."""
+   
 
     def __init__(self, servico):
         super().__init__()

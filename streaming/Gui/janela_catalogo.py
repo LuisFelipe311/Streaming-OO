@@ -1,6 +1,3 @@
-"""Janela de catálogo: listar conteúdo, favoritar/desfavoritar, reproduzir,
-e cadastrar filmes, séries (com episódios) e documentários."""
-
 import customtkinter as ctk
 
 from streaming.Models import Documentario, Episodio, Filme, Serie

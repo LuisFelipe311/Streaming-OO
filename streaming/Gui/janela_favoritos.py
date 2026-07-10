@@ -1,4 +1,4 @@
-"""Janela de favoritos do usuário atual: listar e remover."""
+
 
 import customtkinter as ctk
 

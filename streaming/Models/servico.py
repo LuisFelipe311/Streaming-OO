@@ -1,14 +1,3 @@
-"""Serviço principal (catálogo + recomendação + persistência).
-
-Relações demonstradas neste arquivo:
-- COMPOSIÇÃO: ServicoStreaming "possui" o catálogo de Conteudo.
-- COMPOSIÇÃO: ServicoStreaming "possui" um RepositorioStreaming — criado no
-  próprio construtor, é quem grava/lê tudo do banco SQLite (nível 3).
-- DEPENDÊNCIA: ServicoStreaming usa MotorDeRecomendacao apenas dentro de um
-  método (instanciado localmente, não guardado como atributo) — é o exemplo
-  clássico de dependência: "usa", mas não "tem".
-"""
-
 import random
 
 from .conteudo import Conteudo, Episodio, Serie
@@ -17,7 +6,7 @@ from .usuario import PlanoAssinatura, Usuario
 
 
 class MotorDeRecomendacao:
-    """Só é usada dentro de um método de ServicoStreaming -> DEPENDÊNCIA."""
+    
 
     def recomendar(
         self, usuario: Usuario, catalogo: list[Conteudo], quantidade: int = 3
@@ -81,8 +70,7 @@ class ServicoStreaming:
         return resultado
 
     def carregar_dados_persistidos(self) -> None:
-        """Repõe catálogo, usuários e favoritos a partir do banco de dados.
-        Chamar uma vez, ao iniciar o programa."""
+       
         self._catalogo = self.repositorio.carregar_catalogo()
         self._usuarios = self.repositorio.carregar_usuarios()
         conteudo_por_id = {conteudo.id: conteudo for conteudo in self._catalogo}

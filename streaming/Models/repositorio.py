@@ -1,13 +1,3 @@
-"""Persistência do StreamFlix em SQLite — Nível 3 (Desk App III).
-
-Relação demonstrada neste arquivo:
-- COMPOSIÇÃO: ServicoStreaming "possui" um RepositorioStreaming — o
-  repositório é criado pelo próprio serviço, no construtor, e não existe
-  com propósito próprio fora dele.
-
-Usa só a biblioteca padrão do Python (sqlite3), sem dependências externas.
-"""
-
 import sqlite3
 
 from .conteudo import Conteudo, Documentario, Episodio, Filme, Serie
@@ -51,8 +41,7 @@ CREATE TABLE IF NOT EXISTS favorito (
 
 
 class RepositorioStreaming:
-    """Camada de persistência: converte objetos do domínio em linhas de
-    banco de dados e vice-versa. Quem usa o serviço não precisa saber SQL."""
+   
 
     def __init__(self, caminho_banco: str = "streamflix.db"):
         self.conexao = sqlite3.connect(caminho_banco)

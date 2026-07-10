@@ -1,10 +1,3 @@
-"""Paleta de cores e helpers de estilo compartilhados por todas as janelas
-da interface gráfica (nível 4).
-
-Estilo escolhido: "Escuro Tech" (azul/teal), decidido pelo usuário a partir
-de um mockup visual comparando 3 opções.
-"""
-
 import customtkinter as ctk
 
 BG_JANELA = "#101d29"

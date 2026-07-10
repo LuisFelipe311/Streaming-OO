@@ -13,7 +13,7 @@ from streaming.Models import (
 
 
 class TestRepositorioStreamingRoundTrip(unittest.TestCase):
-    """Cada teste usa um banco SQLite em memória isolado (":memory:")."""
+
 
     def setUp(self):
         self.repo = RepositorioStreaming(":memory:")
@@ -87,8 +87,7 @@ class TestRepositorioStreamingRoundTrip(unittest.TestCase):
 
 
 class TestServicoStreamingPersisteEmSqlite(unittest.TestCase):
-    """Testa que ServicoStreaming persiste de verdade: fecha e reabre o
-    'banco' (usando um arquivo temporário) e os dados continuam lá."""
+
 
     def setUp(self):
         import os

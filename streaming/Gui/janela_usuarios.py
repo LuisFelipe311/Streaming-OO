@@ -1,6 +1,3 @@
-"""Janela de usuários: listar, selecionar como usuário atual, cadastrar
-novo usuário e alterar plano de assinatura."""
-
 import customtkinter as ctk
 
 from streaming.Models import PlanoAssinatura, Usuario

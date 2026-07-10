@@ -1,16 +1,8 @@
-"""Hierarquia de conteúdo do catálogo: Conteudo (superclasse) -> Filme, Serie, Documentario.
-
-Relações demonstradas neste arquivo:
-- HERANÇA: Filme, Serie e Documentario herdam de Conteudo.
-- POLIMORFISMO: cada subclasse implementa reproduzir() de um jeito diferente.
-- COMPOSIÇÃO: Serie "possui" Episodio — um Episodio não existe fora de uma Serie.
-"""
-
 from abc import ABC, abstractmethod
 
 
 class Conteudo(ABC):
-    """Classe base abstrata para qualquer item do catálogo."""
+   
 
     def __init__(self, titulo: str, ano: int, genero: str, avaliacao: float):
         self.id: int | None = None
@@ -21,7 +13,7 @@ class Conteudo(ABC):
 
     @abstractmethod
     def reproduzir(self) -> str:
-        """Método polimórfico: cada subclasse decide o que significa 'reproduzir'."""
+       
         raise NotImplementedError
 
     def exibir_informacoes(self) -> str:
@@ -41,7 +33,7 @@ class Filme(Conteudo):
 
 
 class Episodio:
-    """Um Episodio só faz sentido dentro de uma Serie: relação de COMPOSIÇÃO."""
+   
 
     def __init__(self, numero: int, titulo: str, duracao_minutos: int):
         self.id: int | None = None
@@ -55,7 +47,7 @@ class Episodio:
 
 
 class Serie(Conteudo):
-    """Serie é composta por Episodios: eles nascem e morrem junto com a série."""
+    
 
     def __init__(self, titulo, ano, genero, avaliacao):
         super().__init__(titulo, ano, genero, avaliacao)

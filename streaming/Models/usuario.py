@@ -1,13 +1,3 @@
-"""Usuario, sua lista de favoritos e sua assinatura.
-
-Relações demonstradas neste arquivo:
-- COMPOSIÇÃO: Usuario "possui" ListaFavoritos — a lista não existe sem o usuário.
-- ASSOCIAÇÃO: Usuario está associado a uma Assinatura (a assinatura tem sentido
-  próprio, pode ser trocada/consultada, não é "parte" do usuário).
-- ASSOCIAÇÃO: ListaFavoritos referencia objetos Conteudo que pertencem ao
-  catálogo (ela não é dona deles, só aponta para eles).
-"""
-
 from enum import Enum
 
 from .conteudo import Conteudo
@@ -20,7 +10,7 @@ class PlanoAssinatura(Enum):
 
 
 class Assinatura:
-    """Existe de forma independente do Usuario -> relação de ASSOCIAÇÃO."""
+  
 
     _PRECOS = {
         PlanoAssinatura.FREE: 0.0,
@@ -40,9 +30,7 @@ class Assinatura:
 
 
 class ListaFavoritos:
-    """Pertence a um único Usuario (COMPOSIÇÃO), mas apenas referencia os
-    Conteudo favoritados, que existem de forma independente no catálogo
-    (ASSOCIAÇÃO)."""
+   
 
     def __init__(self):
         self._itens: list[Conteudo] = []

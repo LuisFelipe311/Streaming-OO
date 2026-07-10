@@ -1,6 +1,3 @@
-"""Janela de recomendações: gera sugestões de conteúdo para o usuário atual
-usando o MotorDeRecomendacao (relação de dependência)."""
-
 import customtkinter as ctk
 
 from . import tema
