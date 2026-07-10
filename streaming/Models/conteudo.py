@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Conteudo(ABC):
-    """Classe base abstrata para qualquer item do catálogo."""
+    
 
     def __init__(self, titulo: str, ano: int, genero: str, avaliacao: float):
         self.id: int | None = None  # preenchido pelo RepositorioStreaming ao salvar

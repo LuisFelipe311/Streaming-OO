@@ -10,7 +10,7 @@ class PlanoAssinatura(Enum):
 
 
 class Assinatura:
-    """Existe de forma independente do Usuario -> relação de ASSOCIAÇÃO."""
+  
 
     _PRECOS = {
         PlanoAssinatura.FREE: 0.0,
@@ -30,9 +30,7 @@ class Assinatura:
 
 
 class ListaFavoritos:
-    """Pertence a um único Usuario (COMPOSIÇÃO), mas apenas referencia os
-    Conteudo favoritados, que existem de forma independente no catálogo
-    (ASSOCIAÇÃO)."""
+    
 
     def __init__(self):
         self._itens: list[Conteudo] = []

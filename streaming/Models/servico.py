@@ -6,8 +6,7 @@ from .usuario import PlanoAssinatura, Usuario
 
 
 class MotorDeRecomendacao:
-    """Só é usada dentro de um método de ServicoStreaming -> DEPENDÊNCIA."""
-
+   
     def recomendar(
         self, usuario: Usuario, catalogo: list[Conteudo], quantidade: int = 3
     ) -> list[Conteudo]:
@@ -78,8 +77,7 @@ class ServicoStreaming:
     # ---------- persistência ----------
 
     def carregar_dados_persistidos(self) -> None:
-        """Repõe catálogo, usuários e favoritos a partir do banco de dados.
-        Chamar uma vez, ao iniciar o programa."""
+    
         self._catalogo = self.repositorio.carregar_catalogo()
         self._usuarios = self.repositorio.carregar_usuarios()
         conteudo_por_id = {conteudo.id: conteudo for conteudo in self._catalogo}
